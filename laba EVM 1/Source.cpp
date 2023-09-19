@@ -53,28 +53,47 @@ void DoubleToBits(double x, char* binaryArray)
 
     }
 }
-   
 
-
-
-void IntToBits(short int n, char* bitsArray)
+void IntToBits(short int n, char* binaryArray)
 {
-    long i;
     int index = 0;
     for (int i = sizeof(n) * 8 - 1; i >= 0; i--)
     {
         if ((n >> i) & 1)
         {
-            bitsArray[index] = '1';
+            binaryArray[index] = '1';
         }
         else
         {
-            bitsArray[index] = '0';
+            binaryArray[index] = '0';
         }
         index++;
     }
 }
 
+void toggleBit(char* binaryStr, int pos)
+{
+    if (binaryStr[pos] == '0') 
+    {
+        binaryStr[pos] = '1';
+    }
+    else if (binaryStr[pos] == '1') 
+    {
+        binaryStr[pos] = '0';
+    }
+}
+
+void toggleArray(char** numbers, int numElements, int numBits, int highestBitpos)//эл масива; колво инвертируемых бит; старший разряд
+{
+    for (int i = 0; i < numElements; i++) 
+    {
+        for (int j = highestBitpos; j > highestBitpos - numBits; j--) 
+        {
+            toggleBit(numbers[i], j);
+        }
+    }
+
+}
 
 int main()
 {
@@ -110,13 +129,21 @@ int main()
             cin >> SIInput;
             printf("Binary mode representation: ");
             IntToBits(SIInput,arr);
-            for (int i = 0;i < 17;i++) 
+            for (int i = 0;i < 16;i++) 
             {
                 cout << arr[i];
             }
-            
             printf("\n");
-            printf("Press any button to continue");
+            printf("Press Y for inverting bytes and N to enter main menu\n");
+            int sel2 =_getch();
+            if (sel2 == 89) 
+            {
+                printf("UOugh");
+            }
+            if (sel2 == 78) 
+            {
+               
+            }
             _getch();
             system("cls");
         }
