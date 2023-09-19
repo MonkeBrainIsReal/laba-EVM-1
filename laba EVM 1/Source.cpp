@@ -6,36 +6,72 @@ using namespace std;
 HANDLE Output = GetStdHandle(STD_OUTPUT_HANDLE);
 
 
-void DoubleToBits(double x)
+void DoubleToBits(double x, char* binaryArray) 
 {
     union 
     {
-        double x;
-        char buffer[sizeof(double)];
+        double value;
+        uint64_t bits;//любой тип данных который занимает 64 бита (если uint64_t смущает)
     } u;
-    u.x = x;
-    for (unsigned ofs = 0; ofs < sizeof(double); ofs++) {
-        for (int i = 7; i >= 0; i--) {
-            printf(((1 << i) & u.buffer[ofs]) ? "1" : "0");
+
+    u.value = x;
+    unsigned long long check = 1;//mask
+
+    if (u.bits & (check << 63)) 
+    {
+        binaryArray[0] = '1';
+    }
+    else 
+    {
+        binaryArray[0] = '0';
+    }
+    binaryArray[1] = ' ';//for ebeyshiy output
+
+    for (int i = 0; i < 11; i++) {
+        if (u.bits & (check << (53 + i))) 
+        {
+            binaryArray[2+i] = '1';
         }
-        printf(" ");
+        else 
+        {
+            binaryArray[2+i] = '0';
+        }
+    }
+    binaryArray[13] = ' ';//for ebeyshiy output
+
+    for (int i = 0; i < 52; i++) 
+    {
+        if (u.bits & (check << (51 - i))) 
+        {
+            binaryArray[14 + i] = '1';
+        }
+        else 
+        {
+            binaryArray[14 + i] = '0';
+        }
+
+
     }
 }
+   
 
 
-void IntToBits(short int n)
+
+void IntToBits(short int n, char* bitsArray)
 {
     long i;
-    for (i = 1 << 30; i > 0; i = i / 2)
+    int index = 0;
+    for (i = 1 << 30; i >= 0 && index < 31; i = i / 2)
     {
         if ((n & i) != 0)
         {
-            cout << "1";
+            bitsArray[index] = '1';
         }
         else
         {
-            cout << "0";
+            bitsArray[index] = '0';
         }
+        index++;
     }
 }
 
@@ -68,11 +104,17 @@ int main()
 
         if (selectmode == 49) 
         {
+            char arr[32];
             system("cls");
             printf("print in a integer decimal number\n");
             cin >> SIInput;
             printf("Binary mode representation: ");
-            IntToBits(SIInput);
+            IntToBits(SIInput,arr);
+            for (int i = 0;i < 31;i++) 
+            {
+                cout << arr[i];
+            }
+            
             printf("\n");
             printf("Press any button to continue");
             _getch();
@@ -81,11 +123,16 @@ int main()
 
         if (selectmode == 50) 
         {
+            char arr2[64];
             system("cls");
             printf("print in a real decimal number\n");
             cin >> DInput;
             printf("Binary mode representation: ");
-            DoubleToBits(DInput);
+            DoubleToBits(DInput,arr2);
+            for (int i = 0;i < 63;i++)
+            {
+                cout << arr2[i];
+            }
             printf("\n");
             printf("Press any button to continue");
             _getch();
