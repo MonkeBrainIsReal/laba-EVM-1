@@ -61,9 +61,9 @@ void IntToBits(short int n, char* bitsArray)
 {
     long i;
     int index = 0;
-    for (i = 1 << 30; i >= 0 && index < 31; i = i / 2)
+    for (int i = sizeof(n) * 8 - 1; i >= 0; i--)
     {
-        if ((n & i) != 0)
+        if ((n >> i) & 1)
         {
             bitsArray[index] = '1';
         }
@@ -104,13 +104,13 @@ int main()
 
         if (selectmode == 49) 
         {
-            char arr[32];
+            char arr[16];
             system("cls");
             printf("print in a integer decimal number\n");
             cin >> SIInput;
             printf("Binary mode representation: ");
             IntToBits(SIInput,arr);
-            for (int i = 0;i < 31;i++) 
+            for (int i = 0;i < 17;i++) 
             {
                 cout << arr[i];
             }
