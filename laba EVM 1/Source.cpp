@@ -1,4 +1,4 @@
-#include <ostream>
+п»ї#include <ostream>
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
@@ -11,7 +11,7 @@ void DoubleToBits(double x, char* binaryArray)
     union
     {
         double value;
-        long long bits; 
+        long long bits;
     } u;
 
     u.value = x;
@@ -25,21 +25,35 @@ void DoubleToBits(double x, char* binaryArray)
 
     }
     //binaryArray[1] = ' ';
-    // Извлекаем биты экспоненты c помощью маски из 11 битов (биты с 52 по 62)
+<<<<<<< HEAD
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ c пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 11 пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅ 52 пїЅпїЅ 62)
     long long exponentBits = (u.bits >> 52) & ((1LL << 11) - 1); 
     for (int i = 0; i < 13; i++) 
+=======
+    // Г€Г§ГўГ«ГҐГЄГ ГҐГ¬ ГЎГЁГІГ» ГЅГЄГ±ГЇГ®Г­ГҐГ­ГІГ» c ГЇГ®Г¬Г®Г№ГјГѕ Г¬Г Г±ГЄГЁ ГЁГ§ 11 ГЎГЁГІГ®Гў (ГЎГЁГІГ» Г± 52 ГЇГ® 62)
+    long long exponentBits = (u.bits >> 52) & ((1LL << 11) - 1);
+    for (int i = 0; i < 13; i++)
+>>>>>>> final form
     {
-        if (exponentBits & (1LL << (10 - i))) 
+        if (exponentBits & (1LL << (10 - i)))
         {
             binaryArray[1 + i] = '1';
         }
         else {
             binaryArray[1 + i] = '0';
+<<<<<<< HEAD
         } 
     }
     //binaryArray[13] = ' ';
-    // Извлекаем биты мантиссы  с помощью маски из 52 битов (биты с 0 по 51)
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ  пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 52 пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅ 0 пїЅпїЅ 51)
     long long mantissaBits = u.bits & ((1LL << 52) - 1); 
+=======
+        }
+    }
+    //binaryArray[13] = ' ';
+    // Г€Г§ГўГ«ГҐГЄГ ГҐГ¬ ГЎГЁГІГ» Г¬Г Г­ГІГЁГ±Г±Г»  Г± ГЇГ®Г¬Г®Г№ГјГѕ Г¬Г Г±ГЄГЁ ГЁГ§ 52 ГЎГЁГІГ®Гў (ГЎГЁГІГ» Г± 0 ГЇГ® 51)
+    long long mantissaBits = u.bits & ((1LL << 52) - 1);
+>>>>>>> final form
 
     for (int i = 0; i < 52; i++)
     {
@@ -49,10 +63,15 @@ void DoubleToBits(double x, char* binaryArray)
         }
         else {
             binaryArray[14 + i] = '0';
+<<<<<<< HEAD
         } 
         
+=======
+        }
+
+>>>>>>> final form
     }
-    binaryArray[66] = '\0'; 
+    binaryArray[66] = '\0';
 }
 
 void IntToBits(short int n, char* binaryArray)
@@ -74,17 +93,18 @@ void IntToBits(short int n, char* binaryArray)
 
 char toggleBit(char* binaryStr, int pos)
 {
-    if (binaryStr[pos] == '0') 
+    if (binaryStr[pos] == '0')
     {
         binaryStr[pos] = '1';
     }
-    else if (binaryStr[pos] == '1') 
+    else if (binaryStr[pos] == '1')
     {
         binaryStr[pos] = '0';
     }
     return binaryStr[pos];
 }
 
+<<<<<<< HEAD
 void toggleArray(char* binaryArray, int numBits, int highestBitPos) 
 {
     for (int i = highestBitPos; i > highestBitPos - numBits-1; i--) 
@@ -92,6 +112,15 @@ void toggleArray(char* binaryArray, int numBits, int highestBitPos)
         if (i >= 0) 
         {
             binaryArray[i] = toggleBit(binaryArray,i);
+=======
+void toggleArray(char* binaryArray, int numBits, int highestBitPos)
+{
+    for (int i = highestBitPos; i > highestBitPos - numBits - 1; i--)
+    {
+        if (i >= 0)
+        {
+            binaryArray[i] = toggleBit(binaryArray, i);
+>>>>>>> final form
         }
     }
 }
@@ -101,9 +130,9 @@ int main()
     short int SIInput;
     double DInput;
 
-    while (TRUE) 
+    while (TRUE)
     {
-        SetConsoleTextAttribute(Output,14);
+        SetConsoleTextAttribute(Output, 14);
         printf("Select a mode:\n");
         printf("1 - for ");
         SetConsoleTextAttribute(Output, 12);
@@ -122,29 +151,46 @@ int main()
         printf("an application");
         int  selectmode = _getch();
 
-        if (selectmode == 49) 
+        if (selectmode == 49)
         {
+<<<<<<< HEAD
             char* arr = new char [sizeof(SIInput*8)-1];
+=======
+            char* arr = new char[sizeof(SIInput * 8) - 1];
+>>>>>>> final form
             system("cls");
             printf("print in a integer decimal number\n");
             cin >> SIInput;
             printf("Binary mode representation: ");
+<<<<<<< HEAD
             IntToBits(SIInput,arr);
             for (int i = 0;i < 16;i++) 
+=======
+            IntToBits(SIInput, arr);
+            for (int i = 0;i < 16;i++)
+>>>>>>> final form
             {
                 cout << arr[i];
             }
             printf("\n");
             printf("Press Y for inverting bytes and N to enter main menu\n");
-            int sel2 =_getch();
-            if (sel2 == 89) 
+            int sel2 = _getch();
+            if (sel2 == 89)
             {
+<<<<<<< HEAD
                 int HighestBitpos,NumEl;
+=======
+                int HighestBitpos, NumEl;
+>>>>>>> final form
                 printf("Print in a highest bit position\n");
                 cin >> HighestBitpos;
                 printf("Print in number of elemets for inverting\n");
                 cin >> NumEl;
+<<<<<<< HEAD
                 toggleArray(arr,NumEl,HighestBitpos);
+=======
+                toggleArray(arr, NumEl, HighestBitpos);
+>>>>>>> final form
                 for (int i = 0;i < 16;i++)
                 {
                     cout << arr[i];
@@ -157,25 +203,29 @@ int main()
                         a = a | (b << i);
                     }
                 }
+<<<<<<< HEAD
                 printf("%d",a);
+=======
+                printf("%d", a);
+>>>>>>> final form
 
             }
-            if (sel2 == 78) 
+            if (sel2 == 78)
             {
-               
+
             }
             _getch();
             system("cls");
         }
 
-        if (selectmode == 50) 
+        if (selectmode == 50)
         {
             char arr2[64];
             system("cls");
             printf("print in a real decimal number\n");
             cin >> DInput;
             printf("Binary mode representation: ");
-            DoubleToBits(DInput,arr2);
+            DoubleToBits(DInput, arr2);
             for (int i = 0;i < 63;i++)
             {
                 cout << arr2[i];
@@ -204,9 +254,15 @@ int main()
                 }f;
                 f.dat = 0;
                 long long int b = 1;
+<<<<<<< HEAD
                 for (int i = 0; i < 64; i++) 
                 {
                     if (arr2[63 - i] == '1') 
+=======
+                for (int i = 0; i < 64; i++)
+                {
+                    if (arr2[63 - i] == '1')
+>>>>>>> final form
                     {
                         f.dat = f.dat | (b << i);
                     }
@@ -222,7 +278,7 @@ int main()
             system("cls");
         }
 
-        if (selectmode == 27) 
+        if (selectmode == 27)
         {
             system("cls");
             break;
