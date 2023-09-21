@@ -157,7 +157,7 @@ int main()
                         a = a | (b << i);
                     }
                 }
-                printf("%d", a);
+                cout << "Decimal representation after inverting: " << a;
 
             }
             if (sel2 == 78)
@@ -197,21 +197,21 @@ int main()
                 }
                 printf("\n");
 
-                union f_double
+                union craft_d
                 {
                     double db;
                     long long int dat;
-                }f;
-                f.dat = 0;
+                }craft;
+                craft.dat = 0;
                 long long int b = 1;
                 for (int i = 0; i < 64; i++)
                 {
                     if (arr2[63 - i] == '1')
                     {
-                        f.dat = f.dat | (b << i);
+                        craft.dat = craft.dat | (b << i);
                     }
                 }
-                cout << f.db;
+                cout << "Decimal representation after inverting: " << craft.db;
 
             }
             if (sel2 == 78)//SNAP BACK TO MAIN MENU
