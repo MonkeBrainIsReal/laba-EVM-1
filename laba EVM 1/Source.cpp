@@ -51,10 +51,9 @@ void DoubleToBits(double x, char* binaryArray)
         else {
             binaryArray[14 + i] = '0';
         } 
-        }
+        
     }
     binaryArray[66] = '\0'; 
-    binaryArray[66] = '\0';
 }
 
 void IntToBits(short int n, char* binaryArray)
