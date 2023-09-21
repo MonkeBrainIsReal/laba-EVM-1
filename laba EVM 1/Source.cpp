@@ -203,7 +203,7 @@ int main()
                         a = a | (b << i);
                     }
                 }
-               cout << "Decimal representation after inverting:"<<a;
+                printf("%d", a);
 
             }
             if (sel2 == 78)
@@ -263,7 +263,7 @@ int main()
                         f.dat = f.dat | (b << i);
                     }
                 }
-                cout <<"Decimal representation after inverting:" << f.db;
+                cout << f.db;
 
             }
             if (sel2 == 78)//SNAP BACK TO MAIN MENU
