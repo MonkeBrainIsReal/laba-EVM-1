@@ -15,7 +15,7 @@ void DoubleToBits(double x, char* binaryArray)
     } u;
 
     u.value = x;
-    if ((u.bits & (1LL << 63)) != 0) // Бит знака (бит 63) 
+    if ((u.bits & (1LL << 63)) != 0)
     {
         binaryArray[0] = '1';
     }
@@ -24,20 +24,20 @@ void DoubleToBits(double x, char* binaryArray)
         binaryArray[0] = '0';
 
     }
-    binaryArray[1] = ' ';
+    //binaryArray[1] = ' ';
     // Извлекаем биты экспоненты c помощью маски из 11 битов (биты с 52 по 62)
     long long exponentBits = (u.bits >> 52) & ((1LL << 11) - 1); 
-    for (int i = 0; i < 11; i++) 
+    for (int i = 0; i < 13; i++) 
     {
         if (exponentBits & (1LL << (10 - i))) 
         {
-            binaryArray[2 + i] = '1';
+            binaryArray[1 + i] = '1';
         }
         else {
-            binaryArray[2 + i] = '0';
+            binaryArray[1 + i] = '0';
         } 
     }
-    binaryArray[13] = ' ';
+    //binaryArray[13] = ' ';
     // Извлекаем биты мантиссы  с помощью маски из 52 битов (биты с 0 по 51)
     long long mantissaBits = u.bits & ((1LL << 52) - 1); 
 
@@ -72,7 +72,7 @@ void IntToBits(short int n, char* binaryArray)
     }
 }
 
-void toggleBit(char* binaryStr, int pos)
+char toggleBit(char* binaryStr, int pos)
 {
     if (binaryStr[pos] == '0') 
     {
@@ -82,18 +82,18 @@ void toggleBit(char* binaryStr, int pos)
     {
         binaryStr[pos] = '0';
     }
+    return binaryStr[pos];
 }
 
-void toggleArray(char** numbers, int numElements, int numBits, int highestBitpos)//эл масива; колво инвертируемых бит; старший разряд
+void toggleArray(char* binaryArray, int numBits, int highestBitPos) 
 {
-    for (int i = 0; i < numElements; i++) 
+    for (int i = highestBitPos; i > highestBitPos - numBits-1; i--) 
     {
-        for (int j = highestBitpos; j > highestBitpos - numBits; j--) 
+        if (i >= 0) 
         {
-            toggleBit(numbers[i], j);
+            binaryArray[i] = toggleBit(binaryArray,i);
         }
     }
-
 }
 
 int main()
@@ -124,12 +124,11 @@ int main()
 
         if (selectmode == 49) 
         {
-            char* arr= new char[sizeof(SIInput*8-1)];
+            char* arr = new char [sizeof(SIInput*8)-1];
             system("cls");
             printf("print in a integer decimal number\n");
             cin >> SIInput;
             printf("Binary mode representation: ");
-            
             IntToBits(SIInput,arr);
             for (int i = 0;i < 16;i++) 
             {
@@ -141,14 +140,24 @@ int main()
             if (sel2 == 89) 
             {
                 int HighestBitpos,NumEl;
+                printf("Print in a highest bit position\n");
                 cin >> HighestBitpos;
+                printf("Print in number of elemets for inverting\n");
                 cin >> NumEl;
-                toggleArray(&arr,sizeof(arr),NumEl,HighestBitpos);
+                toggleArray(arr,NumEl,HighestBitpos);
                 for (int i = 0;i < 16;i++)
                 {
                     cout << arr[i];
                 }
-                printf("UOugh");
+                printf("\n");
+                unsigned long int a = 0;
+                unsigned long int b = 1;
+                for (int i = 0; i < 32; i++) {
+                    if (arr[31 - i] == '1') {
+                        a = a | (b << i);
+                    }
+                }
+                printf("%d",a);
 
             }
             if (sel2 == 78) 
@@ -172,7 +181,43 @@ int main()
                 cout << arr2[i];
             }
             printf("\n");
-            printf("Press any button to continue");
+            printf("Press Y for inverting bytes and N to enter main menu\n");
+            int sel2 = _getch();
+            if (sel2 == 89)
+            {
+                int HighestBitpos, NumEl;
+                printf("Print in a highest bit position\n");
+                cin >> HighestBitpos;
+                printf("Print in number of elemets for inverting\n");
+                cin >> NumEl;
+                toggleArray(arr2, NumEl, HighestBitpos);
+                for (int i = 0;i < 64;i++)
+                {
+                    cout << arr2[i];
+                }
+                printf("\n");
+
+                union f_double
+                {
+                    double db;
+                    long long int dat;
+                }f;
+                f.dat = 0;
+                long long int b = 1;
+                for (int i = 0; i < 64; i++) 
+                {
+                    if (arr2[63 - i] == '1') 
+                    {
+                        f.dat = f.dat | (b << i);
+                    }
+                }
+                cout << f.db;
+
+            }
+            if (sel2 == 78)//SNAP BACK TO MAIN MENU
+            {
+
+            }
             _getch();
             system("cls");
         }
