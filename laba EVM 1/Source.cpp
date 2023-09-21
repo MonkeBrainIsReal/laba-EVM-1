@@ -203,7 +203,11 @@ int main()
                         a = a | (b << i);
                     }
                 }
+<<<<<<< HEAD
+                printf("%d",a);
+=======
                 printf("%d", a);
+>>>>>>> final form
 
             }
             if (sel2 == 78)
