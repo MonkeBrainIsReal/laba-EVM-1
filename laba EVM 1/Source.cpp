@@ -11,6 +11,7 @@ void DoubleToBits(double x, char* binaryArray)
     union
     {
         double value;
+        long long bits;
         long long bits; 
     } u;
 
@@ -19,7 +20,7 @@ void DoubleToBits(double x, char* binaryArray)
     {
         binaryArray[0] = '1';
     }
-    else 
+    else
     {
         binaryArray[0] = '0';
 
@@ -41,7 +42,7 @@ void DoubleToBits(double x, char* binaryArray)
     // Извлекаем биты мантиссы  с помощью маски из 52 битов (биты с 0 по 51)
     long long mantissaBits = u.bits & ((1LL << 52) - 1); 
 
-    for (int i = 0; i < 52; i++) 
+    for (int i = 0; i < 52; i++)
     {
         if (mantissaBits & (1LL << (51 - i)))
         {
@@ -50,8 +51,10 @@ void DoubleToBits(double x, char* binaryArray)
         else {
             binaryArray[14 + i] = '0';
         } 
+        }
     }
     binaryArray[66] = '\0'; 
+    binaryArray[66] = '\0';
 }
 
 void IntToBits(short int n, char* binaryArray)
