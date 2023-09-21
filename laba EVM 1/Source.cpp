@@ -25,15 +25,9 @@ void DoubleToBits(double x, char* binaryArray)
 
     }
     //binaryArray[1] = ' ';
-<<<<<<< HEAD
-    // ��������� ���� ���������� c ������� ����� �� 11 ����� (���� � 52 �� 62)
-    long long exponentBits = (u.bits >> 52) & ((1LL << 11) - 1); 
-    for (int i = 0; i < 13; i++) 
-=======
     // Èçâëåêàåì áèòû ýêñïîíåíòû c ïîìîùüþ ìàñêè èç 11 áèòîâ (áèòû ñ 52 ïî 62)
     long long exponentBits = (u.bits >> 52) & ((1LL << 11) - 1);
     for (int i = 0; i < 13; i++)
->>>>>>> final form
     {
         if (exponentBits & (1LL << (10 - i)))
         {
@@ -41,19 +35,11 @@ void DoubleToBits(double x, char* binaryArray)
         }
         else {
             binaryArray[1 + i] = '0';
-<<<<<<< HEAD
-        } 
-    }
-    //binaryArray[13] = ' ';
-    // ��������� ���� ��������  � ������� ����� �� 52 ����� (���� � 0 �� 51)
-    long long mantissaBits = u.bits & ((1LL << 52) - 1); 
-=======
         }
     }
     //binaryArray[13] = ' ';
     // Èçâëåêàåì áèòû ìàíòèññû  ñ ïîìîùüþ ìàñêè èç 52 áèòîâ (áèòû ñ 0 ïî 51)
     long long mantissaBits = u.bits & ((1LL << 52) - 1);
->>>>>>> final form
 
     for (int i = 0; i < 52; i++)
     {
@@ -63,13 +49,8 @@ void DoubleToBits(double x, char* binaryArray)
         }
         else {
             binaryArray[14 + i] = '0';
-<<<<<<< HEAD
-        } 
-        
-=======
         }
 
->>>>>>> final form
     }
     binaryArray[66] = '\0';
 }
@@ -104,15 +85,6 @@ char toggleBit(char* binaryStr, int pos)
     return binaryStr[pos];
 }
 
-<<<<<<< HEAD
-void toggleArray(char* binaryArray, int numBits, int highestBitPos) 
-{
-    for (int i = highestBitPos; i > highestBitPos - numBits-1; i--) 
-    {
-        if (i >= 0) 
-        {
-            binaryArray[i] = toggleBit(binaryArray,i);
-=======
 void toggleArray(char* binaryArray, int numBits, int highestBitPos)
 {
     for (int i = highestBitPos; i > highestBitPos - numBits - 1; i--)
@@ -120,7 +92,6 @@ void toggleArray(char* binaryArray, int numBits, int highestBitPos)
         if (i >= 0)
         {
             binaryArray[i] = toggleBit(binaryArray, i);
->>>>>>> final form
         }
     }
 }
@@ -153,22 +124,13 @@ int main()
 
         if (selectmode == 49)
         {
-<<<<<<< HEAD
-            char* arr = new char [sizeof(SIInput*8)-1];
-=======
             char* arr = new char[sizeof(SIInput * 8) - 1];
->>>>>>> final form
             system("cls");
             printf("print in a integer decimal number\n");
             cin >> SIInput;
             printf("Binary mode representation: ");
-<<<<<<< HEAD
-            IntToBits(SIInput,arr);
-            for (int i = 0;i < 16;i++) 
-=======
             IntToBits(SIInput, arr);
             for (int i = 0;i < 16;i++)
->>>>>>> final form
             {
                 cout << arr[i];
             }
@@ -177,20 +139,12 @@ int main()
             int sel2 = _getch();
             if (sel2 == 89)
             {
-<<<<<<< HEAD
-                int HighestBitpos,NumEl;
-=======
                 int HighestBitpos, NumEl;
->>>>>>> final form
                 printf("Print in a highest bit position\n");
                 cin >> HighestBitpos;
                 printf("Print in number of elemets for inverting\n");
                 cin >> NumEl;
-<<<<<<< HEAD
-                toggleArray(arr,NumEl,HighestBitpos);
-=======
                 toggleArray(arr, NumEl, HighestBitpos);
->>>>>>> final form
                 for (int i = 0;i < 16;i++)
                 {
                     cout << arr[i];
@@ -203,11 +157,7 @@ int main()
                         a = a | (b << i);
                     }
                 }
-<<<<<<< HEAD
-                printf("%d",a);
-=======
                 printf("%d", a);
->>>>>>> final form
 
             }
             if (sel2 == 78)
@@ -254,15 +204,9 @@ int main()
                 }f;
                 f.dat = 0;
                 long long int b = 1;
-<<<<<<< HEAD
-                for (int i = 0; i < 64; i++) 
-                {
-                    if (arr2[63 - i] == '1') 
-=======
                 for (int i = 0; i < 64; i++)
                 {
                     if (arr2[63 - i] == '1')
->>>>>>> final form
                     {
                         f.dat = f.dat | (b << i);
                     }
