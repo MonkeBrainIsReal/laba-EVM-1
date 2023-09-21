@@ -6,52 +6,52 @@ using namespace std;
 HANDLE Output = GetStdHandle(STD_OUTPUT_HANDLE);
 
 
-void DoubleToBits(double x, char* binaryArray) 
+void DoubleToBits(double x, char* binaryArray)
 {
-    union 
+    union
     {
         double value;
-        uint64_t bits;//любой тип данных который занимает 64 бита (если uint64_t смущает)
+        long long bits; 
     } u;
 
     u.value = x;
-    unsigned long long check = 1;//mask
-
-    if (u.bits & (check << 63)) 
+    if ((u.bits & (1LL << 63)) != 0) // Бит знака (бит 63) 
     {
         binaryArray[0] = '1';
     }
     else 
     {
         binaryArray[0] = '0';
-    }
-    binaryArray[1] = ' ';//for ebeyshiy output
 
-    for (int i = 0; i < 11; i++) {
-        if (u.bits & (check << (53 + i))) 
-        {
-            binaryArray[2+i] = '1';
-        }
-        else 
-        {
-            binaryArray[2+i] = '0';
-        }
     }
-    binaryArray[13] = ' ';//for ebeyshiy output
+    binaryArray[1] = ' ';
+    // Извлекаем биты экспоненты c помощью маски из 11 битов (биты с 52 по 62)
+    long long exponentBits = (u.bits >> 52) & ((1LL << 11) - 1); 
+    for (int i = 0; i < 11; i++) 
+    {
+        if (exponentBits & (1LL << (10 - i))) 
+        {
+            binaryArray[2 + i] = '1';
+        }
+        else {
+            binaryArray[2 + i] = '0';
+        } 
+    }
+    binaryArray[13] = ' ';
+    // Извлекаем биты мантиссы  с помощью маски из 52 битов (биты с 0 по 51)
+    long long mantissaBits = u.bits & ((1LL << 52) - 1); 
 
     for (int i = 0; i < 52; i++) 
     {
-        if (u.bits & (check << (51 - i))) 
+        if (mantissaBits & (1LL << (51 - i)))
         {
             binaryArray[14 + i] = '1';
         }
-        else 
-        {
+        else {
             binaryArray[14 + i] = '0';
-        }
-
-
+        } 
     }
+    binaryArray[66] = '\0'; 
 }
 
 void IntToBits(short int n, char* binaryArray)
@@ -123,11 +123,12 @@ int main()
 
         if (selectmode == 49) 
         {
-            char arr[16];
+            char* arr= new char[sizeof(SIInput*8-1)];
             system("cls");
             printf("print in a integer decimal number\n");
             cin >> SIInput;
             printf("Binary mode representation: ");
+            
             IntToBits(SIInput,arr);
             for (int i = 0;i < 16;i++) 
             {
@@ -138,7 +139,16 @@ int main()
             int sel2 =_getch();
             if (sel2 == 89) 
             {
+                int HighestBitpos,NumEl;
+                cin >> HighestBitpos;
+                cin >> NumEl;
+                toggleArray(&arr,sizeof(arr),NumEl,HighestBitpos);
+                for (int i = 0;i < 16;i++)
+                {
+                    cout << arr[i];
+                }
                 printf("UOugh");
+
             }
             if (sel2 == 78) 
             {
