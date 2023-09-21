@@ -11,7 +11,6 @@ void DoubleToBits(double x, char* binaryArray)
     union
     {
         double value;
-        long long bits;
         long long bits; 
     } u;
 
