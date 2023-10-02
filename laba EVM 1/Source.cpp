@@ -114,29 +114,22 @@ void transform_dbl(char* arr2)
 
 void vivod() 
 {
-    setlocale(LC_ALL, "Ru");
+CHAR_INFO chars = { ' ' };
+SMALL_RECT scroll = { 0, 6, 80, 25 };//где скроллится(искл менюшку)
+int i = 0;// colour
+SetConsoleCursorPosition(Output, { 0,25 });
+while (i < 3000) {
+    //SetConsoleCursorPosition(Output, { 15, 5 });  // Устанавливаем начальную позицию в окне
 
-    SMALL_RECT WinS = { 0, 0, 80, 25 };//прямоугольник буфера
-    SetConsoleWindowInfo(Output, true, &WinS);
-    CHAR_INFO chars = { ' ' };
-    SMALL_RECT scroll = { 0, 6, 80, 25 };//где скроллится(искл менюшку)
-    int i = 0;// colour
-    for (int j = 0; j < 20; j++) 
-    {
-        cout << endl;
-    } 
-        while (i < 3000) {
-            //SetConsoleCursorPosition(Output, { 15, 5 });  // Устанавливаем начальную позицию в окне
+    SetConsoleTextAttribute(Output, i);
 
-            SetConsoleTextAttribute(Output, i);
+    ScrollConsoleScreenBuffer(Output, &scroll, NULL, { 0, 5 }, &chars);
+    cout << "Stroka                                     h";
+    i++;
 
-
-            cout << "Stroka                                     h";
-            i++;
-            ScrollConsoleScreenBuffer(Output, &scroll, NULL, { 0, 5 }, &chars);
-            cout << ("\r");
-            Sleep(100);
-        }
+    cout << ("\r");
+    Sleep(100);
+}
 }
 
 int main()
