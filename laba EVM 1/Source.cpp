@@ -157,6 +157,11 @@ int main()
         printf("Double");
         SetConsoleTextAttribute(Output, 14);
         printf(" representation\n");
+        printf("3 - for ");
+        SetConsoleTextAttribute(Output, 12);
+        printf("Laba 2");
+        SetConsoleTextAttribute(Output, 14);
+        printf(" implementation\n");
         printf("ESC - to ");
         SetConsoleTextAttribute(Output, 12);
         printf("exit ");
@@ -243,7 +248,8 @@ int main()
         }
         if (selectmode == 51) 
         {
-
+            system("cls");
+            vivod();
         }
 
         if (selectmode == 27)
