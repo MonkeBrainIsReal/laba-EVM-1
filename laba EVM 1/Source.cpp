@@ -71,10 +71,10 @@ void toggleArray(char* binaryArray, int numBits, int highestBitPos)
 
 void transform_dbl(char* arr2)
 {
-    printf("hIGHEST BIT POS (от 0 до 64): ");
+    printf("Print in highest bit posistion ");
     int member;
     cin >> member;
-    printf("NUM OF ELEMENTS FOR INVERTING: ");
+    printf("Print in amount of elemets for inverting:\n");
     int amount;
     cin >> amount;
     for (int i = member; amount > 0; i--) {
@@ -104,7 +104,6 @@ void transform_dbl(char* arr2)
         }
     }
     cout << "Decimal representation after inverting: " << craft.db;
-    printf("\nPOhui");
     char ch = 0;
     while (ch == 0) {
         ch = _getch();
@@ -153,7 +152,7 @@ int main()
             printf("\n");
             printf("Press Y for inverting bytes and N to enter main menu\n");
             int sel2 = _getch();
-            if (sel2 == 89)
+            if (sel2 == 89||121)
             {
                 int HighestBitpos, NumEl;
                 printf("Print in a highest bit position\n");
@@ -199,23 +198,14 @@ int main()
             printf("\n");
             printf("Press Y for inverting bytes and N to enter main menu\n");
             int sel2 = _getch();
-            if (sel2 == 89)
+            if (sel2 == 89||121)
             {
-                int HighestBitpos, NumEl;
-               /* printf("Print in a highest bit position\n");
-                cin >> HighestBitpos;
-                printf("Print in number of elemets for inverting\n");
-                cin >> NumEl;
-                toggleArray(arr2, NumEl, HighestBitpos);*/
                 for (int i = 0;i < 64;i++)
                 {
                     cout << arr2[i];
                 }
                 printf("\n");
                 transform_dbl(arr2);
-                
-              
-
             }
             if (sel2 == 78)//SNAP BACK TO MAIN MENU
             {
