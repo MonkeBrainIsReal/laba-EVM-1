@@ -4,6 +4,8 @@
 #include <conio.h>
 using namespace std;
 HANDLE Output = GetStdHandle(STD_OUTPUT_HANDLE);
+string English[15];
+string Russian[15];
 
 
 void DoubleToBits(double x, char* binaryArray)
@@ -112,24 +114,78 @@ void transform_dbl(char* arr2)
 
 }
 
+void language()
+{
+    English[0] = "black";
+    English[1] = "blue";
+    English[2] = "green";
+    English[3] = "blue";
+    English[4] = "red";
+    English[5] = "purple";
+    English[6] = "yellow";
+    English[7] = "white";
+    English[8] = "gray";
+    English[9] = "yellow-blue";
+    English[10] = "light green";
+    English[11] = "light blue";
+    English[12] = "light red";
+    English[13] = "light yellow";
+    English[14] = "bright white";
+
+    Russian[0] = "чёрный";
+    Russian[1] = "синий";
+    Russian[2] = "зеленый";
+    Russian[3] = "голубой";
+    Russian[4] = "красный";
+    Russian[5] = "лиловый";
+    Russian[6] = "желтый";
+    Russian[7] = "белый";
+    Russian[8] = "серый";
+    Russian[9] = "свело-синий";
+    Russian[10] = "светло-зеленый";
+    Russian[11] = "светло-голубой";
+    Russian[12] = "светло-красный";
+    Russian[13] = "светло-лиловый";
+    Russian[14] = "ярко-белый";
+
+}
+
 void vivod() 
 {
+setlocale(LC_ALL, " ");
+short x1 = 15, y1 = 12, x2 = 65, y2 = 23;
 CHAR_INFO chars = { ' ' };
-SMALL_RECT scroll = { 0, 6, 80, 25 };//где скроллится(искл менюшку)
-int i = 0;// colour
-SetConsoleCursorPosition(Output, { 0,25 });
-while (i < 3000) {
-    //SetConsoleCursorPosition(Output, { 15, 5 });  // Устанавливаем начальную позицию в окне
-
-    SetConsoleTextAttribute(Output, i);
-
-    ScrollConsoleScreenBuffer(Output, &scroll, NULL, { 0, 5 }, &chars);
-    cout << "Stroka                                     h";
-    i++;
-
-    cout << ("\r");
-    Sleep(100);
+SMALL_RECT scroll = { x1, y1, x2, y2 };
+int i = 0,j =0;// colour
+while(true) 
+{
+     
+    if (i % 16 == 0) 
+    {
+        j++;
+    }
+        SetConsoleTextAttribute(Output, i);
+        ScrollConsoleScreenBuffer(Output, &scroll, NULL, { x1,short(y1 + 1) }, &chars);
+        SetConsoleCursorPosition(Output, { x1,y1 });
+        if (i % 2 == 0) 
+        {
+            cout << "background is:        " << English[j] << "Text is: "<< Russian[i];
+            
+        }
+        else 
+        {
+            cout << "";
+        }
+        i++;
+        if (i == 256) 
+        {
+            i = 0;
+        }
+        Sleep(100);
+    
 }
+
+
 }
 
 int main()
