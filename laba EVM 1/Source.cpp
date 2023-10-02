@@ -15,46 +15,19 @@ void DoubleToBits(double x, char* binaryArray)
     } u;
 
     u.value = x;
-    if ((u.bits & (1LL << 63)) != 0)
+    for (int i = 0;i < 64;i++)
     {
-        binaryArray[0] = '1';
-    }
-    else
-    {
-        binaryArray[0] = '0';
 
-    }
-    //binaryArray[1] = ' ';
-    // Èçâëåêàåì áèòû ýêñïîíåíòû c ïîìîùüþ ìàñêè èç 11 áèòîâ (áèòû ñ 52 ïî 62)
-    long long exponentBits = (u.bits >> 52) & ((1LL << 11) - 1);
-    for (int i = 0; i < 13; i++)
-    {
-        if (exponentBits & (1LL << (10 - i)))
+        if ((u.bits & (1LL << 63-i)) != 0)
         {
-            binaryArray[1 + i] = '1';
+            binaryArray[i] = '1';
         }
-        else {
-            binaryArray[1 + i] = '0';
-        }
-    }
-    //binaryArray[13] = ' ';
-    // Èçâëåêàåì áèòû ìàíòèññû  ñ ïîìîùüþ ìàñêè èç 52 áèòîâ (áèòû ñ 0 ïî 51)
-    long long mantissaBits = u.bits & ((1LL << 52) - 1);
-
-    for (int i = 0; i < 52; i++)
-    {
-        if (mantissaBits & (1LL << (51 - i)))
+        else
         {
-            binaryArray[14 + i] = '1';
+            binaryArray[i] = '0';
         }
-        else {
-            binaryArray[14 + i] = '0';
-        }
-
     }
-    binaryArray[66] = '\0';
 }
-
 void IntToBits(short int n, char* binaryArray)
 {
     int index = 0;
@@ -87,13 +60,56 @@ char toggleBit(char* binaryStr, int pos)
 
 void toggleArray(char* binaryArray, int numBits, int highestBitPos)
 {
-    for (int i = highestBitPos; i > highestBitPos - numBits - 1; i--)
+    for (int i = highestBitPos; i > highestBitPos - numBits -1 ; i--)
     {
         if (i >= 0)
         {
             binaryArray[i] = toggleBit(binaryArray, i);
         }
     }
+}
+
+void transform_dbl(char* arr2)
+{
+    printf("hIGHEST BIT POS (от 0 до 64): ");
+    int member;
+    cin >> member;
+    printf("NUM OF ELEMENTS FOR INVERTING: ");
+    int amount;
+    cin >> amount;
+    for (int i = member; amount > 0; i--) {
+        if (arr2[i] == '1') {
+            arr2[i] = '0';
+        }
+        else if (arr2[ i] == '0') {
+            arr2[i] = '1';
+        }
+        amount--;
+    }
+    for (int i = 0; i < 64; i++) {
+        cout << arr2[i];
+    }
+    union craft_d
+    {
+        double db;
+        long long int dat;
+    }craft;
+    craft.dat = 0;
+    long long int b = 1;
+    for (int i = 0; i <= 63; i++)
+    {
+        if (arr2[63 - i] == '1')
+        {
+            craft.dat = (craft.dat | (b << i));
+        }
+    }
+    cout << "Decimal representation after inverting: " << craft.db;
+    printf("\nPOhui");
+    char ch = 0;
+    while (ch == 0) {
+        ch = _getch();
+    }
+
 }
 
 int main()
@@ -152,8 +168,8 @@ int main()
                 printf("\n");
                 unsigned long int a = 0;
                 unsigned long int b = 1;
-                for (int i = 0; i < 32; i++) {
-                    if (arr[31 - i] == '1') {
+                for (int i = 0; i < 16; i++) {
+                    if (arr[15 - i] == '1') {
                         a = a | (b << i);
                     }
                 }
@@ -176,7 +192,7 @@ int main()
             cin >> DInput;
             printf("Binary mode representation: ");
             DoubleToBits(DInput, arr2);
-            for (int i = 0;i < 63;i++)
+            for (int i = 0;i < 64;i++)
             {
                 cout << arr2[i];
             }
@@ -186,32 +202,19 @@ int main()
             if (sel2 == 89)
             {
                 int HighestBitpos, NumEl;
-                printf("Print in a highest bit position\n");
+               /* printf("Print in a highest bit position\n");
                 cin >> HighestBitpos;
                 printf("Print in number of elemets for inverting\n");
                 cin >> NumEl;
-                toggleArray(arr2, NumEl, HighestBitpos);
+                toggleArray(arr2, NumEl, HighestBitpos);*/
                 for (int i = 0;i < 64;i++)
                 {
                     cout << arr2[i];
                 }
                 printf("\n");
-
-                union craft_d
-                {
-                    double db;
-                    long long int dat;
-                }craft;
-                craft.dat = 0;
-                long long int b = 1;
-                for (int i = 0; i < 64; i++)
-                {
-                    if (arr2[63 - i] == '1')
-                    {
-                        craft.dat = craft.dat | (b << i);
-                    }
-                }
-                cout << "Decimal representation after inverting: " << craft.db;
+                transform_dbl(arr2);
+                
+              
 
             }
             if (sel2 == 78)//SNAP BACK TO MAIN MENU
