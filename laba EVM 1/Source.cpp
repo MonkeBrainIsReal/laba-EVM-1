@@ -4,8 +4,8 @@
 #include <conio.h>
 using namespace std;
 HANDLE Output = GetStdHandle(STD_OUTPUT_HANDLE);
-string English[15];
-string Russian[15];
+string Eng[15];
+string Rus[15];
 
 
 void DoubleToBits(double x, char* binaryArray)
@@ -116,80 +116,76 @@ void transform_dbl(char* arr2)
 
 void language()
 {
-    English[0] = "black";
-    English[1] = "blue";
-    English[2] = "green";
-    English[3] = "blue";
-    English[4] = "red";
-    English[5] = "purple";
-    English[6] = "yellow";
-    English[7] = "white";
-    English[8] = "gray";
-    English[9] = "yellow-blue";
-    English[10] = "light green";
-    English[11] = "light blue";
-    English[12] = "light red";
-    English[13] = "light yellow";
-    English[14] = "bright white";
+    Eng[0] = "black    ";
+    Eng[1] = "blue     ";
+    Eng[2] = "green    ";
+    Eng[3] = "blue     ";
+    Eng[4] = "red      ";
+    Eng[5] = "purple   ";
+    Eng[6] = "yellow   ";
+    Eng[7] = "white    ";
+    Eng[8] = "gray     ";
+    Eng[9] = "b blue   ";
+    Eng[10] = "l green  ";
+    Eng[11] = "l blue   ";
+    Eng[12] = "l red    ";
+    Eng[13] = "l yellow ";
+    Eng[14] = "b white  ";
 
-    Russian[0] = "чёрный";
-    Russian[1] = "синий";
-    Russian[2] = "зеленый";
-    Russian[3] = "голубой";
-    Russian[4] = "красный";
-    Russian[5] = "лиловый";
-    Russian[6] = "желтый";
-    Russian[7] = "белый";
-    Russian[8] = "серый";
-    Russian[9] = "свело-синий";
-    Russian[10] = "светло-зеленый";
-    Russian[11] = "светло-голубой";
-    Russian[12] = "светло-красный";
-    Russian[13] = "светло-лиловый";
-    Russian[14] = "ярко-белый";
-
+    Rus[0] = "чёрный       ";
+    Rus[1] = "синий";
+    Rus[2] = "зеленый      ";
+    Rus[3] = "голубой  ";
+    Rus[4] = "красный      ";
+    Rus[5] = "лиловый  ";
+    Rus[6] = "желтый       ";
+    Rus[7] = "белый      ";
+    Rus[8] = "серый        ";
+    Rus[9] = "с-синий";
+    Rus[10] = "с-зеленый    ";
+    Rus[11] = "с-голубой   ";
+    Rus[12] = "с-красный    ";
+    Rus[13] = "с-лиловый ";
+    Rus[14] = "я-белый      ";
 }
 
-void vivod() 
+void colors() 
 {
-setlocale(LC_ALL, " ");
+setlocale(LC_ALL, "Russian");
 short x1 = 15, y1 = 12, x2 = 65, y2 = 23;
 CHAR_INFO chars = { ' ' };
 SMALL_RECT scroll = { x1, y1, x2, y2 };
-int i = 0,j =0;// colour
+int i = 0,j = 0;// text and bg color
 while(true) 
 {
-     
-    if (i % 16 == 0) 
-    {
-        j++;
-    }
+    language();
         SetConsoleTextAttribute(Output, i);
         ScrollConsoleScreenBuffer(Output, &scroll, NULL, { x1,short(y1 + 1) }, &chars);
         SetConsoleCursorPosition(Output, { x1,y1 });
         if (i % 2 == 0) 
         {
-            cout << "background is:        " << English[j] << "Text is: "<< Russian[i];
-            
+            cout << "background is: " << Eng[j%16]<<"  ";
+            cout << "Text is:   " << Rus[i % 16];
         }
         else 
         {
-            cout << "";
+            cout << "                                                  ";
         }
         i++;
-        if (i == 256) 
+        if (i % 16 == 0)
         {
+            j++;
+        }
+        if (i == 256) {
             i = 0;
         }
-        Sleep(100);
-    
+        Sleep(100);   
 }
-
-
 }
 
 int main()
 {
+    
     short int SIInput;
     double DInput;
     while (TRUE)
@@ -298,7 +294,8 @@ int main()
         if (selectmode == 51) 
         {
             system("cls");
-            vivod();
+            colors();
+            
         }
 
         if (selectmode == 27)
