@@ -179,7 +179,7 @@ while(true)
         if (i == 256) {
             i = 0;
         }
-        Sleep(100);   
+        Sleep(400);   
 }
 }
 
